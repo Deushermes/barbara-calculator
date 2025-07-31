@@ -18,8 +18,52 @@ const BarbaraCalculator = () => {
     salonName: ''
   });
 
-  // Настройка Telegram WebApp
+  // КАРДИНАЛЬНАЯ ФИКСАЦИЯ темной темы Telegram
   useEffect(() => {
+    // Принудительное отключение темной темы Telegram
+    const disableDarkMode = () => {
+      document.documentElement.style.filter = 'invert(0)';
+      document.body.style.filter = 'invert(0)';
+      
+      // Создаем мега-агрессивные стили для input
+      const inputStyle = document.createElement('style');
+      inputStyle.innerHTML = `
+        input, input:focus, input:active, input:hover {
+          background: white !important;
+          background-color: white !important;
+          color: black !important;
+          -webkit-text-fill-color: black !important;
+          -webkit-background-clip: text !important;
+          -webkit-appearance: none !important;
+          appearance: none !important;
+          font-size: 16px !important;
+          opacity: 1 !important;
+          -webkit-opacity: 1 !important;
+        }
+        
+        input::selection {
+          background: #3b82f6 !important;
+          color: white !important;
+        }
+        
+        input::-webkit-input-placeholder {
+          color: #9ca3af !important;
+          -webkit-text-fill-color: #9ca3af !important;
+        }
+        
+        input::-moz-placeholder {
+          color: #9ca3af !important;
+          opacity: 1 !important;
+        }
+      `;
+      document.head.appendChild(inputStyle);
+      
+      // Принудительно переопределяем все Telegram переменные
+      document.documentElement.style.setProperty('--tg-theme-bg-color', '#ffffff');
+      document.documentElement.style.setProperty('--tg-theme-text-color', '#000000');
+      document.documentElement.style.setProperty('--tg-theme-hint-color', '#9ca3af');
+    };
+
     if (window.Telegram?.WebApp) {
       const tg = window.Telegram.WebApp;
       tg.ready();
@@ -36,23 +80,26 @@ const BarbaraCalculator = () => {
       document.body.style.setProperty('--tg-theme-text-color', '#000000');
     }
 
-    // Глобальное переопределение стилей для темной темы
-    const style = document.createElement('style');
-    style.textContent = `
-      input {
-        background: #ffffff !important;
-        color: #111827 !important;
-        -webkit-text-fill-color: #111827 !important;
-        border: 1px solid #d1d5db !important;
+    disableDarkMode();
+    
+    // Повторяем через небольшие задержки для надежности
+    setTimeout(disableDarkMode, 100);
+    setTimeout(disableDarkMode, 500);
+    setTimeout(disableDarkMode, 1000);
+    
+    // Для диагностики
+    setTimeout(() => {
+      console.log('Telegram theme:', window.Telegram?.WebApp?.themeParams);
+      const input = document.querySelector('input');
+      if (input) {
+        const styles = window.getComputedStyle(input);
+        console.log('Input styles:', {
+          color: styles.color,
+          backgroundColor: styles.backgroundColor,
+          WebkitTextFillColor: styles.WebkitTextFillColor
+        });
       }
-
-      input:focus {
-        background: #ffffff !important;
-        color: #111827 !important;
-        -webkit-text-fill-color: #111827 !important;
-      }
-    `;
-    document.head.appendChild(style);
+    }, 1000);
   }, []);
 
   // Расчет потерь в реальном времени (реалистичная формула)
@@ -96,6 +143,18 @@ const BarbaraCalculator = () => {
       ...prev,
       [field]: numericValue
     }));
+    
+    // ХАК: Принудительно обновляем стили input после изменения
+    setTimeout(() => {
+      const inputs = document.querySelectorAll('input');
+      inputs.forEach(input => {
+        input.style.color = '#000000';
+        input.style.backgroundColor = '#ffffff';
+        input.style.webkitTextFillColor = '#000000';
+        // Принудительный reflow
+        input.offsetHeight;
+      });
+    }, 10);
   };
 
   const formatNumber = (num) => {
@@ -135,13 +194,20 @@ const BarbaraCalculator = () => {
     }
   };
 
-  // Стили для input полей с исправлениями видимости
+  // МЕГА-АГРЕССИВНЫЕ стили для input полей 
   const inputStyles = {
-    backgroundColor: '#ffffff',
-    color: '#111827',
-    WebkitTextFillColor: '#111827',
-    border: '1px solid #d1d5db',
-    fontSize: '16px', // Предотвращает зуум на iOS
+    backgroundColor: '#ffffff !important',
+    color: '#000000 !important',
+    WebkitTextFillColor: '#000000 !important',
+    border: '2px solid #d1d5db',
+    fontSize: '18px', // Увеличиваем для лучшей видимости
+    fontWeight: '500',
+    textShadow: 'none',
+    WebkitBackgroundClip: 'text',
+    WebkitAppearance: 'none',
+    appearance: 'none',
+    opacity: '1 !important',
+    WebkitOpacity: '1 !important',
   };
 
   if (showContactForm) {

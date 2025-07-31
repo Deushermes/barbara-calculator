@@ -61,29 +61,35 @@
         color: var(--tg-theme-text-color) !important;
       }
 
-      /* Принудительные стили для input в Mini App */
-      input {
+      /* МЕГА-АГРЕССИВНЫЕ принудительные стили для input в Mini App */
+      input, input:focus, input:active, input:hover {
         background-color: #ffffff !important;
-        border: 1px solid #d1d5db !important;
-        color: #111827 !important;
-        -webkit-text-fill-color: #111827 !important;
+        background: #ffffff !important;
+        border: 2px solid #d1d5db !important;
+        color: #000000 !important;
+        -webkit-text-fill-color: #000000 !important;
         -webkit-opacity: 1 !important;
         opacity: 1 !important;
+        -webkit-appearance: none !important;
+        appearance: none !important;
+        text-shadow: none !important;
+        font-weight: 500 !important;
       }
 
-      input:focus {
-        background-color: #ffffff !important;
-        color: #111827 !important;
-        -webkit-text-fill-color: #111827 !important;
-        outline: none !important;
-        border-color: #8b5cf6 !important;
-        box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.5) !important;
-      }
-
-      input::placeholder {
-        color: #9ca3af !important;
-        -webkit-text-fill-color: #9ca3af !important;
+      input::placeholder, input::-webkit-input-placeholder {
+        color: #6b7280 !important;
+        -webkit-text-fill-color: #6b7280 !important;
         opacity: 1 !important;
+      }
+
+      input::-moz-placeholder {
+        color: #6b7280 !important;
+        opacity: 1 !important;
+      }
+
+      input::selection {
+        background: #3b82f6 !important;
+        color: white !important;
       }
 
       /* Анимации */
