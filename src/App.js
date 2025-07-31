@@ -154,7 +154,7 @@ const BarbaraCalculator = () => {
                   type="text"
                   value={contactData.name}
                   onChange={(e) => setContactData(prev => ({ ...prev, name: e.target.value }))}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-900 bg-white"
                   placeholder="Введите ваше имя"
                 />
               </div>
@@ -168,7 +168,7 @@ const BarbaraCalculator = () => {
                   type="tel"
                   value={contactData.phone}
                   onChange={(e) => setContactData(prev => ({ ...prev, phone: e.target.value }))}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-900 bg-white"
                   placeholder="+7 (___) ___-__-__"
                 />
               </div>
@@ -182,7 +182,7 @@ const BarbaraCalculator = () => {
                   type="text"
                   value={contactData.salonName}
                   onChange={(e) => setContactData(prev => ({ ...prev, salonName: e.target.value }))}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-900 bg-white"
                   placeholder="Название вашего салона"
                 />
               </div>
@@ -303,7 +303,7 @@ const BarbaraCalculator = () => {
                 type="text"
                 value={formData.avgCheck}
                 onChange={(e) => handleInputChange('avgCheck', e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-lg"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-lg text-gray-900 bg-white"
                 placeholder="2500"
               />
             </div>
@@ -316,7 +316,7 @@ const BarbaraCalculator = () => {
                 type="text"
                 value={formData.clientsTotal}
                 onChange={(e) => handleInputChange('clientsTotal', e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-lg"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-lg text-gray-900 bg-white"
                 placeholder="1200"
               />
             </div>
@@ -329,7 +329,7 @@ const BarbaraCalculator = () => {
                 type="text"
                 value={formData.visitsPerMonth}
                 onChange={(e) => handleInputChange('visitsPerMonth', e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-lg"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-lg text-gray-900 bg-white"
                 placeholder="2"
               />
             </div>
@@ -342,7 +342,7 @@ const BarbaraCalculator = () => {
                 type="text"
                 value={formData.sleepingPercent}
                 onChange={(e) => handleInputChange('sleepingPercent', e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-lg"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-lg text-gray-900 bg-white"
                 placeholder="35"
               />
             </div>
