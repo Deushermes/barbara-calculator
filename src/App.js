@@ -102,6 +102,62 @@ const BarbaraCalculator = () => {
     }, 1000);
   }, []);
 
+  // ЭКСТРЕМАЛЬНЫЙ ХАК: Прямое DOM вмешательство каждые 100мс
+  useEffect(() => {
+    const forceInputVisibility = () => {
+      const inputs = document.querySelectorAll('input');
+      inputs.forEach(input => {
+        // Убираем все возможные стили, которые могут скрывать текст
+        input.style.cssText = `
+          background: white !important;
+          background-color: white !important;
+          color: black !important;
+          -webkit-text-fill-color: black !important;
+          -webkit-background-clip: initial !important;
+          -webkit-text-stroke: initial !important;
+          text-shadow: none !important;
+          opacity: 1 !important;
+          -webkit-opacity: 1 !important;
+          font-size: 18px !important;
+          font-weight: 600 !important;
+          border: 2px solid #d1d5db !important;
+          padding: 12px 16px !important;
+          border-radius: 8px !important;
+        `;
+        
+        // Принудительно перерисовываем
+        void input.offsetHeight; // ESLint fix
+        
+        // Добавляем обработчики для поддержания стилей
+        input.addEventListener('input', () => {
+          input.style.color = 'black';
+          input.style.webkitTextFillColor = 'black';
+        });
+        
+        input.addEventListener('focus', () => {
+          input.style.color = 'black';
+          input.style.webkitTextFillColor = 'black';
+          input.style.backgroundColor = 'white';
+        });
+      });
+    };
+
+    // Запускаем сразу
+    forceInputVisibility();
+    
+    // И каждые 100мс для надежности (первые 5 секунд)
+    const interval = setInterval(forceInputVisibility, 100);
+    
+    // Останавливаем через 5 секунд
+    setTimeout(() => {
+      clearInterval(interval);
+      // Но оставляем проверку каждую секунду
+      setInterval(forceInputVisibility, 1000);
+    }, 5000);
+    
+    return () => clearInterval(interval);
+  }, []);
+
   // Расчет потерь в реальном времени (реалистичная формула)
   useEffect(() => {
     const { avgCheck, clientsTotal, visitsPerMonth, sleepingPercent } = formData;
@@ -152,7 +208,7 @@ const BarbaraCalculator = () => {
         input.style.backgroundColor = '#ffffff';
         input.style.webkitTextFillColor = '#000000';
         // Принудительный reflow
-        void input.offsetHeight; // Принудительный reflow
+        void input.offsetHeight; // ESLint fix
       });
     }, 10);
   };
