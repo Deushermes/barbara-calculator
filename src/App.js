@@ -18,6 +18,43 @@ const BarbaraCalculator = () => {
     salonName: ''
   });
 
+  // Настройка Telegram WebApp
+  useEffect(() => {
+    if (window.Telegram?.WebApp) {
+      const tg = window.Telegram.WebApp;
+      tg.ready();
+      tg.expand();
+      tg.MainButton.hide();
+
+      // Устанавливаем тему
+      tg.setHeaderColor('#ffffff');
+      tg.setBackgroundColor('#ffffff');
+
+      // Принудительно светлая тема
+      document.documentElement.setAttribute('data-theme', 'light');
+      document.body.style.setProperty('--tg-theme-bg-color', '#ffffff');
+      document.body.style.setProperty('--tg-theme-text-color', '#000000');
+    }
+
+    // Глобальное переопределение стилей для темной темы
+    const style = document.createElement('style');
+    style.textContent = `
+      input {
+        background: #ffffff !important;
+        color: #111827 !important;
+        -webkit-text-fill-color: #111827 !important;
+        border: 1px solid #d1d5db !important;
+      }
+
+      input:focus {
+        background: #ffffff !important;
+        color: #111827 !important;
+        -webkit-text-fill-color: #111827 !important;
+      }
+    `;
+    document.head.appendChild(style);
+  }, []);
+
   // Расчет потерь в реальном времени (реалистичная формула)
   useEffect(() => {
     const { avgCheck, clientsTotal, visitsPerMonth, sleepingPercent } = formData;
@@ -98,23 +135,14 @@ const BarbaraCalculator = () => {
     }
   };
 
-  // Настройка Telegram WebApp
-  useEffect(() => {
-    if (window.Telegram?.WebApp) {
-      window.Telegram.WebApp.ready();
-      window.Telegram.WebApp.expand();
-      window.Telegram.WebApp.MainButton.hide();
-      
-      // Принудительно отключаем темную тему
-      window.Telegram.WebApp.setHeaderColor('#ffffff');
-      window.Telegram.WebApp.setBackgroundColor('#ffffff');
-      
-      // Устанавливаем светлую тему для всего документа
-      document.documentElement.style.colorScheme = 'light';
-      document.body.style.backgroundColor = '#ffffff';
-      document.body.style.color = '#000000';
-    }
-  }, []);
+  // Стили для input полей с исправлениями видимости
+  const inputStyles = {
+    backgroundColor: '#ffffff',
+    color: '#111827',
+    WebkitTextFillColor: '#111827',
+    border: '1px solid #d1d5db',
+    fontSize: '16px', // Предотвращает зуум на iOS
+  };
 
   if (showContactForm) {
     return (
@@ -163,12 +191,8 @@ const BarbaraCalculator = () => {
                   type="text"
                   value={contactData.name}
                   onChange={(e) => setContactData(prev => ({ ...prev, name: e.target.value }))}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                  style={{ 
-                    color: '#000000 !important', 
-                    backgroundColor: '#ffffff !important',
-                    WebkitTextFillColor: '#000000 !important'
-                  }}
+                  className="w-full px-4 py-3 rounded-lg text-lg transition-all duration-200"
+                  style={inputStyles}
                   placeholder="Введите ваше имя"
                 />
               </div>
@@ -182,12 +206,8 @@ const BarbaraCalculator = () => {
                   type="tel"
                   value={contactData.phone}
                   onChange={(e) => setContactData(prev => ({ ...prev, phone: e.target.value }))}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                  style={{ 
-                    color: '#000000 !important', 
-                    backgroundColor: '#ffffff !important',
-                    WebkitTextFillColor: '#000000 !important'
-                  }}
+                  className="w-full px-4 py-3 rounded-lg text-lg transition-all duration-200"
+                  style={inputStyles}
                   placeholder="+7 (___) ___-__-__"
                 />
               </div>
@@ -201,12 +221,8 @@ const BarbaraCalculator = () => {
                   type="text"
                   value={contactData.salonName}
                   onChange={(e) => setContactData(prev => ({ ...prev, salonName: e.target.value }))}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                  style={{ 
-                    color: '#000000 !important', 
-                    backgroundColor: '#ffffff !important',
-                    WebkitTextFillColor: '#000000 !important'
-                  }}
+                  className="w-full px-4 py-3 rounded-lg text-lg transition-all duration-200"
+                  style={inputStyles}
                   placeholder="Название вашего салона"
                 />
               </div>
@@ -327,12 +343,8 @@ const BarbaraCalculator = () => {
                 type="text"
                 value={formData.avgCheck}
                 onChange={(e) => handleInputChange('avgCheck', e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-lg"
-                style={{ 
-                  color: '#000000 !important', 
-                  backgroundColor: '#ffffff !important',
-                  WebkitTextFillColor: '#000000 !important'
-                }}
+                className="w-full px-4 py-3 rounded-lg text-lg transition-all duration-200"
+                style={inputStyles}
                 placeholder="2500"
               />
             </div>
@@ -345,12 +357,8 @@ const BarbaraCalculator = () => {
                 type="text"
                 value={formData.clientsTotal}
                 onChange={(e) => handleInputChange('clientsTotal', e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-lg"
-                style={{ 
-                  color: '#000000 !important', 
-                  backgroundColor: '#ffffff !important',
-                  WebkitTextFillColor: '#000000 !important'
-                }}
+                className="w-full px-4 py-3 rounded-lg text-lg transition-all duration-200"
+                style={inputStyles}
                 placeholder="1200"
               />
             </div>
@@ -363,12 +371,8 @@ const BarbaraCalculator = () => {
                 type="text"
                 value={formData.visitsPerMonth}
                 onChange={(e) => handleInputChange('visitsPerMonth', e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-lg"
-                style={{ 
-                  color: '#000000 !important', 
-                  backgroundColor: '#ffffff !important',
-                  WebkitTextFillColor: '#000000 !important'
-                }}
+                className="w-full px-4 py-3 rounded-lg text-lg transition-all duration-200"
+                style={inputStyles}
                 placeholder="2"
               />
             </div>
@@ -381,12 +385,8 @@ const BarbaraCalculator = () => {
                 type="text"
                 value={formData.sleepingPercent}
                 onChange={(e) => handleInputChange('sleepingPercent', e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-lg"
-                style={{ 
-                  color: '#000000 !important', 
-                  backgroundColor: '#ffffff !important',
-                  WebkitTextFillColor: '#000000 !important'
-                }}
+                className="w-full px-4 py-3 rounded-lg text-lg transition-all duration-200"
+                style={inputStyles}
                 placeholder="35"
               />
             </div>
