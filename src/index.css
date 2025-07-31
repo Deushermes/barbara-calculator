@@ -35,9 +35,17 @@ html, body {
 }
 
 /* Кастомные стили для форм */
+input {
+  color: #000000 !important;
+  background-color: #ffffff !important;
+  -webkit-text-fill-color: #000000 !important;
+}
+
 input:focus {
   outline: none;
   box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+  color: #000000 !important;
+  background-color: #ffffff !important;
 }
 
 button:disabled {
