@@ -152,7 +152,7 @@ const BarbaraCalculator = () => {
         input.style.backgroundColor = '#ffffff';
         input.style.webkitTextFillColor = '#000000';
         // Принудительный reflow
-        input.offsetHeight;
+        void input.offsetHeight; // ESLint fix - принудительный reflow
       });
     }, 10);
   };

@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/barbara-calculator/static/css/main.6cd3ef55.css",
+    "main.js": "/barbara-calculator/static/js/main.9944ccf6.js",
+    "index.html": "/barbara-calculator/index.html",
+    "main.6cd3ef55.css.map": "/barbara-calculator/static/css/main.6cd3ef55.css.map",
+    "main.9944ccf6.js.map": "/barbara-calculator/static/js/main.9944ccf6.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6cd3ef55.css",
+    "static/js/main.9944ccf6.js"
+  ]
+}
